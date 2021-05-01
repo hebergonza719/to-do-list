@@ -4,8 +4,7 @@ function Todo( {addNewItem} ) {
   const [ newItem, setNewItem ] = useState("");
 
   const handleChange = e => {
-    setNewItem(e.target.value)
-    console.log(newItem);
+    setNewItem(e.target.value);
   }
 
   const handleSubmit = e => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Todo from './components/ToDo.js'
+import Todo from './components/ToDo.js';
 import './App.css';
+import DisplayList from './components/DisplayList.js';
 
 function App() {
   const [ toDoList, setToDoList ] = useState([]);
@@ -9,20 +10,28 @@ function App() {
     const newItem = [
       ...toDoList,
       {
-      task : newTask,
+      task : newTask.toUpperCase(),
       id: Date.now(),
       completed: false
       }
     ]
-
     setToDoList(newItem);
   }
 
-  console.log(toDoList);
+  const removeTask = (itemId) => {
+    const newList = toDoList.filter(item => {
+      return item.id !== itemId;
+    })
+    setToDoList(newList);
+  }
 
   return (
     <div className="App">
       <Todo addNewItem={addNewItem} />
+      <DisplayList 
+        toDoList={toDoList}
+        removeTask={removeTask}  
+      />
     </div>
   );
 }
