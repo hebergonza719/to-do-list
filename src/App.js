@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ToDoForm from './components/ToDoForm.js';
 import './App.css';
 import DisplayList from './components/DisplayList.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   const [ toDoList, setToDoList ] = useState([]);
@@ -40,14 +41,28 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <ToDoForm addNewItem={addNewItem} />
-      <DisplayList 
-        toDoList={toDoList}
-        removeTask={removeTask}  
-        toggleCompleted={toggleCompleted}
-      />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route 
+            path="/dashboard"
+            render={props => {
+              return (
+                <div>
+                  <ToDoForm {...props} addNewItem={addNewItem} />
+                  <DisplayList 
+                    {...props}
+                    toDoList={toDoList}
+                    removeTask={removeTask}  
+                    toggleCompleted={toggleCompleted}
+                  />
+                </div>
+              )
+            }} 
+          />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
