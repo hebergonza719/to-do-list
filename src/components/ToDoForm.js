@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Todo( {addNewItem} ) {
+function ToDoForm( {addNewItem} ) {
   const [ newItem, setNewItem ] = useState("");
 
   const handleChange = e => {
@@ -33,4 +33,4 @@ function Todo( {addNewItem} ) {
   )
 }
 
-export default Todo;
+export default ToDoForm;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task';
 
-function DisplayList({ toDoList, removeTask }) {
+function DisplayList({ toDoList, removeTask, toggleCompleted }) {
   return (
     <div className='to-do-list'>
       {toDoList.map(item => {
@@ -10,6 +10,7 @@ function DisplayList({ toDoList, removeTask }) {
             item={item}
             key={item.id}
             removeTask={removeTask}
+            toggleCompleted={toggleCompleted}
           />
         )
       })}
