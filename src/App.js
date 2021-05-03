@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Todo from './components/ToDo.js';
+import ToDoForm from './components/ToDoForm.js';
 import './App.css';
 import DisplayList from './components/DisplayList.js';
 
@@ -10,7 +10,7 @@ function App() {
     const newItem = [
       ...toDoList,
       {
-      task : newTask.toUpperCase(),
+      task : newTask,
       id: Date.now(),
       completed: false
       }
@@ -25,12 +25,27 @@ function App() {
     setToDoList(newList);
   }
 
+  const toggleCompleted = (itemId) => {
+    const newList = toDoList.map(item => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          completed: !item.completed
+        };
+      } else {
+        return item;
+      }
+    });
+    setToDoList(newList);
+  }
+
   return (
     <div className="App">
-      <Todo addNewItem={addNewItem} />
+      <ToDoForm addNewItem={addNewItem} />
       <DisplayList 
         toDoList={toDoList}
         removeTask={removeTask}  
+        toggleCompleted={toggleCompleted}
       />
     </div>
   );
