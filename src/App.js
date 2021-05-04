@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ToDoForm from './components/ToDoForm.js';
 import './App.css';
 import DisplayList from './components/DisplayList.js';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './components/Login';
+
 
 function App() {
   const [ toDoList, setToDoList ] = useState([]);
@@ -44,6 +46,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
+          <Route exact path='/' component={Login} />
           <Route 
             path="/dashboard"
             render={props => {
