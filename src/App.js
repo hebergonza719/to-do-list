@@ -4,6 +4,7 @@ import ToDoForm from './components/ToDoForm.js';
 import './App.css';
 import DisplayList from './components/DisplayList.js';
 import Login from './components/Login';
+import Register from './components/Register';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path='/' component={Login} />
+          <Route path='/register' component={Register} />
           <Route 
             path="/dashboard"
             render={props => {

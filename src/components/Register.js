@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login() {
+function Register() {
   const [ credentials, setCredentials ] = useState({
     username: "",
     password: ""
@@ -16,13 +16,12 @@ function Login() {
   return (
     <div>
       <h2>To-do List</h2>
-      <h3>Sign-in</h3>
+      <h3>Register</h3>
       <form>
         <label>
           Username
           <input
             type='text'
-            // this is very important for handleChange to identify the <input>
             name='username'
             value={credentials.username}
             onChange={handleChange}
@@ -44,4 +43,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
