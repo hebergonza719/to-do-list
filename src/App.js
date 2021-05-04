@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ToDoForm from './components/ToDoForm.js';
 import './App.css';
 import DisplayList from './components/DisplayList.js';
+import Login from './components/Login';
+import Register from './components/Register';
+
 
 function App() {
   const [ toDoList, setToDoList ] = useState([]);
@@ -40,14 +44,30 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <ToDoForm addNewItem={addNewItem} />
-      <DisplayList 
-        toDoList={toDoList}
-        removeTask={removeTask}  
-        toggleCompleted={toggleCompleted}
-      />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route exact path='/' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route 
+            path="/dashboard"
+            render={props => {
+              return (
+                <div>
+                  <ToDoForm {...props} addNewItem={addNewItem} />
+                  <DisplayList 
+                    {...props}
+                    toDoList={toDoList}
+                    removeTask={removeTask}  
+                    toggleCompleted={toggleCompleted}
+                  />
+                </div>
+              )
+            }} 
+          />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
