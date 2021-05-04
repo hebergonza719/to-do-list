@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Login() {
   const [ credentials, setCredentials ] = useState({
@@ -37,9 +38,10 @@ function Login() {
             onChange={handleChange}
           />
         </label>
-        <button>Submit</button>
-        <button>Register</button>
+        <button>Sign-in</button>
       </form>
+      <h4>Create an account?</h4>
+      <NavLink to="/register">Register</NavLink>
     </div>
   );
 }

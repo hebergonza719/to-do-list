@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Register() {
   const [ credentials, setCredentials ] = useState({
@@ -37,8 +38,8 @@ function Register() {
           />
         </label>
         <button>Submit</button>
-        <button>Register</button>
       </form>
+      <NavLink to="/">Or sign in</NavLink>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import './App.css';
 import DisplayList from './components/DisplayList.js';
 import Login from './components/Login';
 import Register from './components/Register';
+import PageNotFound from './components/PageNotFound';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
               )
             }} 
           />
+          <Route component={PageNotFound} />
         </Switch>
       </div>
     </Router>
