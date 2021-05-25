@@ -6,6 +6,7 @@ import DisplayList from './components/DisplayList.js';
 import Login from './components/Login';
 import Register from './components/Register';
 import PageNotFound from './components/PageNotFound';
+import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
@@ -50,9 +51,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Login} />
           <Route path='/register' component={Register} />
-          <Route 
+          <PrivateRoute 
             path="/dashboard"
-            render={props => {
+            component={props => {
               return (
                 <div>
                   <ToDoForm {...props} addNewItem={addNewItem} />

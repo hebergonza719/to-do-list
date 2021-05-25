@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 function Login() {
   const [ credentials, setCredentials ] = useState({
     username: "",
     password: ""
   });
+
+  let history = useHistory();
 
   const handleChange = e => {
     setCredentials({
@@ -14,11 +17,30 @@ function Login() {
     })
   };
 
+  const handleLogin = e => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post("http://localhost:3300/api/auth/login", (credentials))
+      .then(res => {
+        console.log(res)
+        localStorage.setItem("token", res.data.jwt_token);
+        history.push("/dashboard");
+      })
+      .catch(err => {
+        localStorage.removeItem("token");
+        console.log("invalid login", err);
+      });
+    setCredentials({
+      username: "",
+      password: ""
+    })
+  };
+
   return (
     <div>
       <h2>To-do List</h2>
       <h3>Sign-in</h3>
-      <form>
+      <form onSubmit={handleLogin}>
         <label>
           Username
           <input
