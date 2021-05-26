@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import PageNotFound from './components/PageNotFound';
 import PrivateRoute from './components/PrivateRoute';
+import LogoutBtn from './components/LogoutBtn';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             component={props => {
               return (
                 <div>
+                  <LogoutBtn />
                   <ToDoForm {...props} addNewItem={addNewItem} />
                   <DisplayList 
                     {...props}
