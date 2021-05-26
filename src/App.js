@@ -11,7 +11,6 @@ import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const [ toDoList, setToDoList ] = useState([]);
-
   const addNewItem = (newTask) => {
     const newItem = [
       ...toDoList,

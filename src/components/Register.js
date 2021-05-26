@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 function Register() {
   const [ credentials, setCredentials ] = useState({
     username: "",
     password: ""
   });
+
+  let history = useHistory();
 
   const handleChange = e => {
     setCredentials({
@@ -14,11 +17,27 @@ function Register() {
     })
   };
 
+  const handleRegister = e => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, (credentials))
+      .then(res => {
+        history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    setCredentials({
+      username: "",
+      password: ""
+    });
+  };
+
   return (
     <div>
       <h2>To-do List</h2>
       <h3>Register</h3>
-      <form>
+      <form onSubmit={handleRegister}>
         <label>
           Username
           <input

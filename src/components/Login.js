@@ -20,9 +20,8 @@ function Login() {
   const handleLogin = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post("http://localhost:3300/api/auth/login", (credentials))
+      .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, (credentials))
       .then(res => {
-        console.log(res)
         localStorage.setItem("token", res.data.jwt_token);
         history.push("/dashboard");
       })
