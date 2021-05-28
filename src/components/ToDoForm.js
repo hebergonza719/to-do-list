@@ -1,7 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import TasksListContext from '../context/TasksListContext';
+import axios from 'axios';
 
-function ToDoForm( {addNewItem} ) {
+// function ToDoForm( {addNewItem} ) {
+function ToDoForm() {
   const [ newItem, setNewItem ] = useState("");
+
+  const { refresh, setRefresh } = useContext(TasksListContext);
+
+  const toggleRefresh = () => {
+    setRefresh(!refresh);
+  }
+
+  const addNewItem = () => {
+    const newTask = {
+      user_id: localStorage.getItem("user_id"),
+      description: newItem,
+      notes: "",
+      completed: false
+    }
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/tasks`, newTask)
+      .catch(err => {
+        console.log(err);
+      });
+    toggleRefresh();
+  }
 
   const handleChange = e => {
     setNewItem(e.target.value);

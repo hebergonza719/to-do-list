@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import TasksListContext from '../context/TasksListContext';
+
 
 function Login() {
   const [ credentials, setCredentials ] = useState({
@@ -8,7 +10,21 @@ function Login() {
     password: ""
   });
 
+  const { refresh, setRefresh } = useContext(TasksListContext);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_BACKEND_URL}/tasks/users/${localStorage.getItem("user_id")}`)
+  //       .then(res => {
+  //         setData(res.data);
+  //       })
+  // }, []);
+
   let history = useHistory();
+
+  const toggleRefresh = () => {
+    setRefresh(!refresh);
+  }
 
   const handleChange = e => {
     setCredentials({
@@ -23,6 +39,8 @@ function Login() {
       .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, (credentials))
       .then(res => {
         localStorage.setItem("token", res.data.jwt_token);
+        localStorage.setItem("user_id", res.data.user_id);
+        toggleRefresh();
         history.push("/dashboard");
       })
       .catch(err => {

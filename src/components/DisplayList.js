@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Task from './Task';
+import TasksListContext from '../context/TasksListContext';
 
-function DisplayList({ toDoList, removeTask, toggleCompleted }) {
+function DisplayList() {
+  const { data, refresh, setRefresh } = useContext(TasksListContext);
+
   return (
     <div className='to-do-list'>
-      {toDoList.map(item => {
+      {data.map(item => {
         return (
           <Task 
             item={item}
             key={item.id}
-            removeTask={removeTask}
-            toggleCompleted={toggleCompleted}
+            refresh={refresh}
+            setRefresh={setRefresh}
           />
         )
       })}

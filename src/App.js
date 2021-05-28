@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ToDoForm from './components/ToDoForm.js';
 import './App.css';
@@ -8,70 +8,56 @@ import Register from './components/Register';
 import PageNotFound from './components/PageNotFound';
 import PrivateRoute from './components/PrivateRoute';
 import LogoutBtn from './components/LogoutBtn';
+import axios from 'axios';
+import TasksListContext from './context/TasksListContext';
 
 
 function App() {
-  const [ toDoList, setToDoList ] = useState([]);
-  const addNewItem = (newTask) => {
-    const newItem = [
-      ...toDoList,
-      {
-      task : newTask,
-      id: Date.now(),
-      completed: false
-      }
-    ]
-    setToDoList(newItem);
+  const [data, setData] = useState([]);
+  const [refresh, setRefresh] = useState(true);
+
+  const fetchData = () => {
+    if (localStorage.getItem("user_id")) {
+      axios
+        .get(`${process.env.REACT_APP_BACKEND_URL}/tasks/users/${localStorage.getItem("user_id")}`)
+          .then(res => {
+            setData(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    }
   }
 
-  const removeTask = (itemId) => {
-    const newList = toDoList.filter(item => {
-      return item.id !== itemId;
-    })
-    setToDoList(newList);
-  }
-
-  const toggleCompleted = (itemId) => {
-    const newList = toDoList.map(item => {
-      if (item.id === itemId) {
-        return {
-          ...item,
-          completed: !item.completed
-        };
-      } else {
-        return item;
-      }
-    });
-    setToDoList(newList);
-  }
+  useEffect(() => {
+    fetchData();
+  }, [refresh]);
 
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route exact path='/' component={Login} />
-          <Route path='/register' component={Register} />
-          <PrivateRoute 
-            path="/dashboard"
-            component={props => {
-              return (
-                <div>
-                  <LogoutBtn />
-                  <ToDoForm {...props} addNewItem={addNewItem} />
-                  <DisplayList 
-                    {...props}
-                    toDoList={toDoList}
-                    removeTask={removeTask}  
-                    toggleCompleted={toggleCompleted}
-                  />
-                </div>
-              )
-            }} 
-          />
-          <Route component={PageNotFound} />
-        </Switch>
-      </div>
-    </Router>
+    <TasksListContext.Provider value={{data, setData, refresh, setRefresh}}>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path='/' component={Login} />
+            <Route path='/register' component={Register} />
+            <PrivateRoute 
+              path="/dashboard"
+              component={props => {
+                return (
+                  <div>
+                    <LogoutBtn />
+                    <ToDoForm />
+                    {/* <ToDoForm {...props} addNewItem={addNewItem} /> */}
+                    <DisplayList />
+                  </div>
+                )
+              }} 
+            />
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </Router>
+    </TasksListContext.Provider>
   );
 }
 
