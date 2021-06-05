@@ -1,3 +1,101 @@
-.App {
-  text-align: center;
+.login-register-input {
+  width: 100%;
+}
+
+#login-register-logo-container {
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#login-register-form-container {
+  height: 350px;
+}
+
+#login-register-fields-container {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#sign-register-in-container {
+  margin-top: 4rem;
+}
+
+#login-register-button-container {
+  margin-top: 28px;
+}
+
+#dashboard-container {
+  height: 75%;
+  overflow: auto;
+}
+
+#dashboard-field-cont {
+  justify-content: space-around;
+}
+
+#dashboard-field-cont-right {
+  justify-content: space-around;
+  padding-right: 24px;
+}
+
+#dashboard-task-input {
+  margin-left: 8px;
+  border: 1px solid #dee2e6;
+}
+
+#dashboard-task-notes {
+  margin-left: 8px;
+  border: 1px solid #dee2e6;
+}
+
+#tasks-container {
+  /* border: 1px solid #dee2e6; */
+  padding: 0 0;
+  margin: 0 10px;
+}
+
+#tasks {
+  border: 1px solid #dee2e6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  #dashboard-field-cont-right {
+    justify-content: normal;
+    padding-right: 0px;
+    margin-left: 25px;
+  }
+
+  #dashboard-field-cont {
+    justify-content: normal;
+    padding-right: 0px;
+    margin-left: 25px;
+  }
+
+  #dashboard-task-input {
+    margin-left: 20px;
+  }
+
+  #dashboard-form {
+    padding: 24px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    width: 400px;
+    margin-left: 50px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .login-container {
+    max-width: 720px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .login-container {
+    max-width: 900px;
+  }
 }

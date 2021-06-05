@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+
 function Register() {
   const [ credentials, setCredentials ] = useState({
     username: "",
@@ -34,32 +40,73 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>To-do List</h2>
-      <h3>Register</h3>
-      <form onSubmit={handleRegister}>
-        <label>
-          Username
-          <input
-            type='text'
-            name='username'
-            value={credentials.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type='password'
-            name='password'
-            value={credentials.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button>Submit</button>
-      </form>
-      <NavLink to="/">Or sign in</NavLink>
-    </div>
+    <Jumbotron className="d-flex align-items-center min-vh-100 mb-0 bg-white">
+      <Container className="login-container">
+        <Row className="align-items-center no-gutters">
+          <Col md={6} id="login-register-logo-container">
+            <h2 className="text-center">My To-do</h2>
+          </Col>
+          <Col md={6} id="login-register-form-container">
+            <form onSubmit={handleRegister}>
+              <Row className="no-gutters" id="sign-register-in-container">
+                <Col md={12}>
+                  <h3 className="text-center">Register</h3>
+                </Col>
+              </Row>
+              <Row 
+                className="align-items-center no-gutters"
+                id="login-register-fields-container"
+              >
+                <Col md={3}>
+                  <label>
+                    Username
+                  </label>
+                </Col>
+                <Col md={7}>
+                  <input 
+                    className="login-register-input"
+                    type='text'
+                    name='username'
+                    value={credentials.username}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row 
+                className="align-items-center no-gutters"
+                id="login-register-fields-container"
+              >
+                <Col md={3}>
+                  <label>
+                    Password
+                  </label>
+                </Col>
+                <Col md={7}>
+                  <input 
+                    className="login-register-input"
+                    type='password'
+                    name='password'
+                    value={credentials.password}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row className="no-gutters text-center" id="login-register-button-container">
+                <Col md={12}>
+                  <Button type="submit">Submit</Button>
+                </Col>
+              </Row>
+            </form>
+          </Col>          
+        </Row>      
+        <Row className="no-gutters">
+          <Col className="text-center mt-1">
+            <h5>Already registered?</h5>
+            <NavLink to="/">Sign-in</NavLink>
+          </Col>
+        </Row>
+      </Container>
+    </Jumbotron>
   );
 }
 

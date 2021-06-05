@@ -7,10 +7,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import PageNotFound from './components/PageNotFound';
 import PrivateRoute from './components/PrivateRoute';
-import LogoutBtn from './components/LogoutBtn';
+import NavBar from './components/NavBar';
 import axios from 'axios';
 import TasksListContext from './context/TasksListContext';
 
+import Container from 'react-bootstrap/Container';
 
 function App() {
   const [data, setData] = useState([]);
@@ -45,10 +46,13 @@ function App() {
               component={props => {
                 return (
                   <div>
-                    <LogoutBtn />
-                    <ToDoForm />
-                    {/* <ToDoForm {...props} addNewItem={addNewItem} /> */}
-                    <DisplayList />
+                    <NavBar />
+                    <div className="d-flex align-items-center vh-100 mb-0">
+                      <Container className="rounded border p-0" id="dashboard-container">
+                        <ToDoForm />
+                        <DisplayList />
+                      </Container>
+                    </div>
                   </div>
                 )
               }} 

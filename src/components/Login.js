@@ -4,6 +4,12 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 import TasksListContext from '../context/TasksListContext';
 
 
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+
 function Login() {
   const [ credentials, setCredentials ] = useState({
     username: "",
@@ -40,6 +46,7 @@ function Login() {
       .then(res => {
         localStorage.setItem("token", res.data.jwt_token);
         localStorage.setItem("user_id", res.data.user_id);
+        localStorage.setItem("username", res.data.username);
         toggleRefresh();
         history.push("/dashboard");
       })
@@ -54,34 +61,74 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>To-do List</h2>
-      <h3>Sign-in</h3>
-      <form onSubmit={handleLogin}>
-        <label>
-          Username
-          <input
-            type='text'
-            // this is very important for handleChange to identify the <input>
-            name='username'
-            value={credentials.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type='password'
-            name='password'
-            value={credentials.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button>Sign-in</button>
-      </form>
-      <h4>Create an account?</h4>
-      <NavLink to="/register">Register</NavLink>
-    </div>
+    <Jumbotron className="d-flex align-items-center min-vh-100 mb-0 bg-white">
+      <Container className="login-container">
+        <Row className="align-items-center no-gutters">
+          <Col md={6} id="login-register-logo-container">
+            <h2 className="text-center">My To-do</h2>
+          </Col>
+          <Col md={6} id="login-register-form-container">
+            <form onSubmit={handleLogin}>
+              <Row className="no-gutters" id="sign-register-in-container">
+                <Col md={12}>
+                  <h3 className="text-center">Sign-in</h3>
+                </Col>
+              </Row>
+              <Row 
+                className="align-items-center no-gutters"
+                id="login-register-fields-container"
+              >
+                <Col md={3}>
+                  <label>
+                    Username
+                  </label>
+                </Col>
+                <Col md={7}>
+                  <input 
+                    className="login-register-input"
+                    type='text'
+                    // this is very important for handleChange to identify the <input>
+                    name='username'
+                    value={credentials.username}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row 
+                className="align-items-center no-gutters"
+                id="login-register-fields-container"
+              >
+                <Col md={3}>
+                  <label>
+                    Password
+                  </label>
+                </Col>
+                <Col md={7}>
+                  <input 
+                    className="login-register-input"
+                    type='password'
+                    name='password'
+                    value={credentials.password}
+                    onChange={handleChange}
+                  />
+                </Col>
+              </Row>
+              <Row className="no-gutters text-center" id="login-register-button-container">
+                <Col md={12}>
+                  <Button type="submit">Sign-in</Button>
+                </Col>
+              </Row>
+            </form>
+          </Col>          
+        </Row>      
+        <Row className="no-gutters">
+          <Col className="text-center mt-1">
+            <h5>Create an account?</h5>
+            <NavLink to="/register">Register</NavLink>
+          </Col>
+        </Row>
+      </Container>
+    </Jumbotron>
   );
 }
 

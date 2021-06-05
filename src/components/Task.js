@@ -1,6 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+
+
 function Task({ item, setRefresh, refresh }) {  
   const toggleRefresh = () => {
     setRefresh(!refresh);
@@ -13,6 +19,9 @@ function Task({ item, setRefresh, refresh }) {
     };
     axios
       .put(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`, updatedItem)
+      .then(res => {
+        toggleRefresh();
+      })
       .catch(err => {
         console.log(err);
       })
@@ -21,6 +30,9 @@ function Task({ item, setRefresh, refresh }) {
   const removeTask = () => {
     axios
       .delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`)
+      .then(res => {
+        toggleRefresh();
+      })
       .catch(err => {
         console.log(err);
       })
@@ -29,22 +41,35 @@ function Task({ item, setRefresh, refresh }) {
   const handleRemove = e => {
     e.preventDefault();
     removeTask();
-    toggleRefresh();
+    // toggleRefresh();
   }
 
   const handleToggle = e => {
     e.preventDefault();
     toggleCompleted();
-    toggleRefresh();
+    // toggleRefresh();
   }
 
   return (
-    <div>
-      <p>Description: {item.description}</p>
-      <p>Notes: {item.notes}</p>
-      <button onClick={handleToggle}>Status: {item.completed ? "Done" : "Pending"}</button>
-      <button onClick={handleRemove}>Remove</button>
-    </div>
+    <Container className="mb-4" id="tasks">
+      <Row className='no-gutters'>
+        <Col>
+          <p>Description: {item.description}</p>
+        </Col>
+        <Col>
+          <p>Notes: {item.notes}</p>
+
+        </Col>
+      </Row>
+      <Row className='d-flex no-gutters'>
+        <Col xs={4} md={3} lg={2}>
+          <Button type="submit" onClick={handleToggle}>Status: {item.completed ? "Done" : "Pending"}</Button>
+        </Col>
+        <Col xs={4} md={3} lg={2}>
+          <Button variant="danger" type="submit" onClick={handleRemove}>Remove</Button>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
