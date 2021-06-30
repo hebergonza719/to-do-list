@@ -1,10 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 function Task({ item, setRefresh, refresh }) {  
@@ -17,7 +17,7 @@ function Task({ item, setRefresh, refresh }) {
       ...item,
       completed: !item.completed
     };
-    axios
+    axiosWithAuth
       .put(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`, updatedItem)
       .then(res => {
         toggleRefresh();
@@ -28,7 +28,7 @@ function Task({ item, setRefresh, refresh }) {
   }
 
   const removeTask = () => {
-    axios
+    axiosWithAuth
       .delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`)
       .then(res => {
         toggleRefresh();

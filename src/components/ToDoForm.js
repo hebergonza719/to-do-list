@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import TasksListContext from '../context/TasksListContext';
-import axios from 'axios';
 
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 // function ToDoForm( {addNewItem} ) {
@@ -25,7 +26,7 @@ function ToDoForm() {
       notes: newNotes,
       completed: false
     }
-    axios
+    axiosWithAuth
       .post(`${process.env.REACT_APP_BACKEND_URL}/tasks`, newTask)
       .catch(err => {
         console.log(err);

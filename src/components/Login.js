@@ -18,14 +18,6 @@ function Login() {
 
   const { refresh, setRefresh } = useContext(TasksListContext);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_BACKEND_URL}/tasks/users/${localStorage.getItem("user_id")}`)
-  //       .then(res => {
-  //         setData(res.data);
-  //       })
-  // }, []);
-
   let history = useHistory();
 
   const toggleRefresh = () => {
