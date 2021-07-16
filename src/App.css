@@ -99,3 +99,7 @@
     max-width: 900px;
   }
 }
+
+.logo {
+  width: inherit;
+}

@@ -17,7 +17,7 @@ function Task({ item, setRefresh, refresh }) {
       ...item,
       completed: !item.completed
     };
-    axiosWithAuth
+    axiosWithAuth()
       .put(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`, updatedItem)
       .then(res => {
         toggleRefresh();
@@ -28,7 +28,7 @@ function Task({ item, setRefresh, refresh }) {
   }
 
   const removeTask = () => {
-    axiosWithAuth
+    axiosWithAuth()
       .delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`)
       .then(res => {
         toggleRefresh();

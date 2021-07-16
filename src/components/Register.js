@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+// import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios';
+import logo from '../images/ToDoosLogo.jpg';
+
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -25,7 +28,7 @@ function Register() {
 
   const handleRegister = e => {
     e.preventDefault();
-    axiosWithAuth()
+    axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, (credentials))
       .then(res => {
         history.push("/");
@@ -44,7 +47,8 @@ function Register() {
       <Container className="login-container">
         <Row className="align-items-center no-gutters">
           <Col md={6} id="login-register-logo-container">
-            <h2 className="text-center">My To-do</h2>
+            {/* <h2 className="text-center">My To-do</h2> */}
+            <img className="logo" src={logo} alt="ToDoos Logo"/>
           </Col>
           <Col md={6} id="login-register-form-container">
             <form onSubmit={handleRegister}>

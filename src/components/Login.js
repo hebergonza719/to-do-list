@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import TasksListContext from '../context/TasksListContext';
+import logo from '../images/ToDoosLogo.jpg';
 
 
 import Button from 'react-bootstrap/Button';
@@ -57,7 +58,8 @@ function Login() {
       <Container className="login-container">
         <Row className="align-items-center no-gutters">
           <Col md={6} id="login-register-logo-container">
-            <h2 className="text-center">My To-do</h2>
+            {/* <h2 className="text-center">My To-do</h2> */}
+            <img className="logo" src={logo} alt="ToDoos Logo"/>
           </Col>
           <Col md={6} id="login-register-form-container">
             <form onSubmit={handleLogin}>

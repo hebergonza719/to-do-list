@@ -8,8 +8,10 @@ import Register from './components/Register';
 import PageNotFound from './components/PageNotFound';
 import PrivateRoute from './components/PrivateRoute';
 import NavBar from './components/NavBar';
-import axios from 'axios';
+// import axios from 'axios';
 import TasksListContext from './context/TasksListContext';
+import { axiosWithAuth } from './utils/axiosWithAuth';
+
 
 import Container from 'react-bootstrap/Container';
 
@@ -19,7 +21,7 @@ function App() {
 
   const fetchData = () => {
     if (localStorage.getItem("user_id")) {
-      axios
+      axiosWithAuth()
         .get(`${process.env.REACT_APP_BACKEND_URL}/tasks/users/${localStorage.getItem("user_id")}`)
           .then(res => {
             setData(res.data);

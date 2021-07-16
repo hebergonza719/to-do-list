@@ -26,8 +26,11 @@ function ToDoForm() {
       notes: newNotes,
       completed: false
     }
-    axiosWithAuth
+    axiosWithAuth()
       .post(`${process.env.REACT_APP_BACKEND_URL}/tasks`, newTask)
+      // .then((response) => {
+      //   console.log(response)
+      // })
       .catch(err => {
         console.log(err);
       });
