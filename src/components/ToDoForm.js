@@ -1,23 +1,16 @@
-import React, { useState, useContext } from 'react';
-import TasksListContext from '../context/TasksListContext';
-
+import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+// import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+import { connect } from "react-redux";
+import { addTask } from "../actions";
 
-// function ToDoForm( {addNewItem} ) {
-function ToDoForm() {
+function ToDoForm({ addTask }) {
   const [ newItem, setNewItem ] = useState("");
   const [ newNotes, setNewNotes ] = useState("");
-
-  const { refresh, setRefresh } = useContext(TasksListContext);
-
-  const toggleRefresh = () => {
-    setRefresh(!refresh);
-  }
 
   const addNewItem = () => {
     const newTask = {
@@ -26,15 +19,7 @@ function ToDoForm() {
       notes: newNotes,
       completed: false
     }
-    axiosWithAuth()
-      .post(`${process.env.REACT_APP_BACKEND_URL}/tasks`, newTask)
-      // .then((response) => {
-      //   console.log(response)
-      // })
-      .catch(err => {
-        console.log(err);
-      });
-    toggleRefresh();
+    addTask(newTask);
   }
 
   const handleChangeTask = e => {
@@ -48,6 +33,8 @@ function ToDoForm() {
   const handleSubmit = e => {
     e.preventDefault();
     addNewItem(newItem);
+    setNewItem("");
+    setNewNotes("");
   }
 
   return (
@@ -92,4 +79,13 @@ function ToDoForm() {
   )
 }
 
-export default ToDoForm;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks
+  };
+};
+
+export default connect (
+  mapStateToProps,
+  { addTask }
+)(ToDoForm);

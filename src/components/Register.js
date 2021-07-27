@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-// import { axiosWithAuth } from '../utils/axiosWithAuth';
 import axios from 'axios';
 import logo from '../images/ToDoosLogo.jpg';
 

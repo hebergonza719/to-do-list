@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import TasksListContext from '../context/TasksListContext';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 
 function NavBar() {
-
-  const { setData } = useContext(TasksListContext);
-
   let history = useHistory();
 
   const handleLogout = e => {
@@ -17,14 +13,10 @@ function NavBar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
     localStorage.removeItem("username");
-    setData([]);
     history.push("/");
   };
 
   return (
-    // <div>
-    //   <button onClick={handleLogout}>Logout</button>
-    // </div>
     <Navbar bg="primary" variant="dark" fixed="top">
       <Container fluid>
         <Navbar.Text>

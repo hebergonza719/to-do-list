@@ -1,32 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import Task from './Task';
-import TasksListContext from '../context/TasksListContext';
+
+import { connect } from "react-redux";
+import { getData } from "../actions";
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-function DisplayList() {
-  const { data, refresh, setRefresh } = useContext(TasksListContext);
+function DisplayList({ tasks, dispatch }) {
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch])
 
   return (
     <Container>
       <Row className='mt-4 no-gutters' id="tasks-container">
         <Col>
-          {data.map(item => {
+          {tasks.length > 0 ? tasks.map(item => {
             return (
               <Task 
                 item={item}
                 key={item.id}
-                refresh={refresh}
-                setRefresh={setRefresh}
               />
             )
-          })}
+          }) : null}
         </Col>
       </Row>
     </Container>
   )
 }
 
-export default DisplayList;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks,
+  };
+};
+
+export default connect (
+  mapStateToProps
+)(DisplayList);

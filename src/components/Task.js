@@ -1,53 +1,26 @@
 import React from 'react';
-
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { connect } from "react-redux";
+import { modCompleted } from "../actions";
+import { deleteTask } from "../actions";
 
 
-function Task({ item, setRefresh, refresh }) {  
-  const toggleRefresh = () => {
-    setRefresh(!refresh);
-  }
-
-  const toggleCompleted = () => {
-    const updatedItem = {
-      ...item,
-      completed: !item.completed
-    };
-    axiosWithAuth()
-      .put(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`, updatedItem)
-      .then(res => {
-        toggleRefresh();
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-
-  const removeTask = () => {
-    axiosWithAuth()
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${item.id}`)
-      .then(res => {
-        toggleRefresh();
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-  
+function Task({ item, tasks, modCompleted, deleteTask }) {  
   const handleRemove = e => {
     e.preventDefault();
-    removeTask();
-    // toggleRefresh();
+    deleteTask(item.id);
   }
 
   const handleToggle = e => {
     e.preventDefault();
-    toggleCompleted();
-    // toggleRefresh();
+    const updatedItem = {
+      ...item,
+      completed: !item.completed
+    };
+    modCompleted(item.id, updatedItem);
   }
 
   return (
@@ -73,4 +46,13 @@ function Task({ item, setRefresh, refresh }) {
   )
 }
 
-export default Task;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks
+  };
+};
+
+export default connect (
+  mapStateToProps,
+  { modCompleted, deleteTask }
+)(Task);

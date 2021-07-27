@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import TasksListContext from '../context/TasksListContext';
 import logo from '../images/ToDoosLogo.jpg';
 
 
@@ -17,13 +16,7 @@ function Login() {
     password: ""
   });
 
-  const { refresh, setRefresh } = useContext(TasksListContext);
-
   let history = useHistory();
-
-  const toggleRefresh = () => {
-    setRefresh(!refresh);
-  }
 
   const handleChange = e => {
     setCredentials({
@@ -40,7 +33,6 @@ function Login() {
         localStorage.setItem("token", res.data.jwt_token);
         localStorage.setItem("user_id", res.data.user_id);
         localStorage.setItem("username", res.data.username);
-        toggleRefresh();
         history.push("/dashboard");
       })
       .catch(err => {
