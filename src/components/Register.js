@@ -95,8 +95,11 @@ function Register() {
                 </Col>
               </Row>
               <Row className="no-gutters text-center" id="login-register-button-container">
-                <Col md={12}>
+                <Col xs={6} md={3}>
                   <Button type="submit">Submit</Button>
+                </Col>
+                <Col xs={6} md={3}>
+                  <Button type="submit">Guest</Button>
                 </Col>
               </Row>
             </form>

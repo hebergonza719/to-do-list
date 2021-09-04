@@ -36,6 +36,22 @@ function App() {
               )
             }}
           />
+          <Route 
+            path="/dashboard-guest"
+            component={props => {
+              return (
+                <div>
+                  <NavBar />
+                  <div className="d-flex align-items-center vh-100 mb-0">
+                    <Container className="rounded border p-0" id="dashboard-container">
+                      <ToDoForm />
+                      <DisplayList />
+                    </Container>
+                  </div>
+                </div>
+              )
+            }}
+          />
           <Route component={PageNotFound} />
         </Switch>
       </div>
