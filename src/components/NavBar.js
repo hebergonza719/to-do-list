@@ -20,7 +20,8 @@ function NavBar() {
     <Navbar bg="primary" variant="dark" fixed="top">
       <Container fluid>
         <Navbar.Text>
-          Signed in as {localStorage.getItem("username")}
+          Signed in as {localStorage.getItem("username") ? localStorage.getItem("username") : 'Guest'}
+          {/* Signed in as {localStorage.getItem("username")} */}
         </Navbar.Text>
         <Button variant="light" onClick={handleLogout}>Logout</Button>
       </Container>
