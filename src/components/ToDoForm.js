@@ -13,13 +13,22 @@ function ToDoForm({ addTask }) {
   const [ newNotes, setNewNotes ] = useState("");
 
   const addNewItem = () => {
-    const newTask = {
-      user_id: localStorage.getItem("user_id"),
-      description: newItem,
-      notes: newNotes,
-      completed: false
+    if (localStorage.getItem("username")) {
+      const newTask = {
+        user_id: localStorage.getItem("user_id"),
+        description: newItem,
+        notes: newNotes,
+        completed: false
+      }
+      addTask(newTask);
+    } else {
+      const newTask = {
+        description: newItem,
+        notes: newNotes,
+        completed: false
+      }
+      addTask(newTask);
     }
-    addTask(newTask);
   }
 
   const handleChangeTask = e => {
