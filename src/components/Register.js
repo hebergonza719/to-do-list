@@ -18,6 +18,14 @@ function Register() {
 
   let history = useHistory();
 
+  const handleGuestLogin = e => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
+    history.push("/dashboard-guest");
+  }
+
   const handleChange = e => {
     setCredentials({
       ...credentials,
@@ -99,7 +107,7 @@ function Register() {
                   <Button type="submit">Submit</Button>
                 </Col>
                 <Col xs={6} md={3}>
-                  <Button type="submit">Guest</Button>
+                  <Button onClick={handleGuestLogin}>Guest</Button>
                 </Col>
               </Row>
             </form>
